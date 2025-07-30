@@ -1,5 +1,6 @@
 // src/apiServices/loginServices.js
 import axios from 'axios';
+import { NETWORK_ERROR } from '../constants/errorConstants.ts';
 
 const BASE_URL = 'http://localhost:8080/auth';
 
@@ -12,12 +13,11 @@ export const loginUser = async (credentials) => {
     const response = await axios.post(`${BASE_URL}/login`, credentials);
     return response.data; // Return the response data containing token and user info
   } catch (error) {
-    // Throw readable error to catch in component
-    if (error.response && error.response.data) {
-      throw new Error(error.response.data.message);
-    } else {
-      throw new Error('Network error. Please try again.');
-    }
+  if (error.response && error.response.data) {
+    throw new Error(error.response.data.message);
+  } else {
+    throw new Error(NETWORK_ERROR);
   }
+}
 };
 
