@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { loginUser } from '../../apiServices/loginServices';
 import { saveAuthData } from '../../utils/storage';
+import { PASSWORD_LENGTH_ERROR } from '../../constants/errorConstants.ts';
 
 const LoginForm = () => {
   /*
@@ -28,7 +29,7 @@ const LoginForm = () => {
 
     if (formData.password.length < 6) {
       // Validate password length
-      setError('Password must be at least 6 characters.');
+      setError(PASSWORD_LENGTH_ERROR);
       setIsLoading(false);
       return;
     }
